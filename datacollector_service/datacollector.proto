@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+service DataCollectorService {
+  rpc CollectStockData(Empty) returns (CollectionResponse);
+}
+
+message Empty {}
+
+message CollectionResponse {
+  string status = 1;
+  int32 collected = 2;
+}

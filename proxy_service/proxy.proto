@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+service ProxyService {
+  rpc ForwardRequest(ProxyUserRequest) returns (ProxyUserResponse);
+}
+
+message ProxyUserRequest {
+  string service = 1;       // Nome del microservizio (e.g., "auth_service", "stock_service")
+  string method = 2;        // Metodo da chiamare (e.g., "RegisterUser", "UpdateThresholds", "GetStock", "GetAverage")
+  string email = 3;         // Email dell'utente (se applicabile)
+  string ticker = 4;        // Simbolo del ticker (per RegisterUser/DeleteUser)
+  string old_ticker = 6;    // Vecchio ticker (per UpdateUser)
+  string new_ticker = 7;    // Nuovo ticker (per UpdateUser)
+  double high_value = 8;    // Nuova soglia superiore (per RegisterUser/UpdateThresholds/UpdateUser)
+  double low_value = 9;     // Nuova soglia inferiore (per RegisterUser/UpdateThresholds/UpdateUser)
+  int32 count = 5;          // Numero di valori (per GetAverage)
+}
+
+message ProxyUserResponse {
+  string status = 1;    // Stato della richiesta
+  double value = 2;     // Valore del ticker (per GetStock)
+  double average = 3;   // Media calcolata (per GetAverage)
+}

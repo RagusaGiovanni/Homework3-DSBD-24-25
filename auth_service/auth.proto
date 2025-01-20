@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+service AuthService {
+  rpc RegisterUser(AuthUserRequest) returns (AuthUserResponse);
+  rpc UpdateUser(AuthUserUpdateRequest) returns (AuthUserResponse); // Modificato per usare AuthUserUpdateRequest con nuovi parametri
+  rpc UpdateThresholds(AuthThresholdRequest) returns (AuthUserResponse);
+  rpc DeleteUser(AuthUserRequest) returns (AuthUserResponse);
+}
+
+message AuthUserRequest {
+  string email = 1;
+  string ticker = 2;
+  double high_value = 3;  // Nuova soglia superiore (opzionale)
+  double low_value = 4;   // Nuova soglia inferiore (opzionale)
+}
+
+message AuthUserUpdateRequest {
+  string email = 1;       // Email dell'utente
+  string old_ticker = 2;  // Vecchio ticker (opzionale)
+  string new_ticker = 3;  // Nuovo ticker (opzionale)
+  double high_value = 4;  // Nuova soglia superiore (opzionale)
+  double low_value = 5;   // Nuova soglia inferiore (opzionale)
+}
+
+message AuthThresholdRequest {
+  string email = 1;       // Email dell'utente
+  double high_value = 2;  // Nuova soglia superiore
+  double low_value = 3;   // Nuova soglia inferiore
+}
+
+message AuthUserResponse {
+  string status = 1;
+}

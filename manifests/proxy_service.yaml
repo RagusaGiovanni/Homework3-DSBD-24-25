@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy-service
+  labels:
+    app: proxy-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proxy-service
+  template:
+    metadata:
+      labels:
+        app: proxy-service
+    spec:
+      containers:
+      - name: proxy-service
+        image: giovannir24/proxy_service_image:latest # Sostituisci con il nome della tua immagine
+        ports:
+        - containerPort: 5005  # Porta principale per il gRPC
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-service
+spec:
+  selector:
+    app: proxy-service
+  ports:
+  - port: 5005       # Porta del servizio
+    targetPort: 5005 # Porta del container
+    nodePort: 30001
+  type: NodePort

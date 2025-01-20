@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stock-service
+  labels:
+    app: stock-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stock-service
+  template:
+    metadata:
+      labels:
+        app: stock-service
+    spec:
+      containers:
+      - name: stock-service
+        image: giovannir24/stock_service_image:latest  # Sostituisci con il nome della tua immagine
+        ports:
+        - containerPort: 5002  # Porta principale per il gRPC
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stock-service
+spec:
+  selector:
+    app: stock-service
+  ports:
+  - port: 5002       # Porta del servizio
+    targetPort: 5002 # Porta del container

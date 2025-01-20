@@ -1,0 +1,20 @@
+global:
+  scrape_interval: 5s  # Intervallo di polling predefinito per le metriche
+
+scrape_configs:
+  # Configurazione per AuthService
+  - job_name: 'auth_service'
+    static_configs:
+      - targets: ['auth_service:8000']  # Porta del servizio AuthService
+
+  # Configurazione per DataCollector
+  - job_name: 'datacollector_service'
+    static_configs:
+      - targets: ['datacollector_service:8001']  # Porta del servizio AuthService
+
+  # Configurazione per StockService
+  - job_name: 'stock_service'
+    static_configs:
+      - targets: ['stock_service:8002']  # Porta del servizio AuthService
+
+  

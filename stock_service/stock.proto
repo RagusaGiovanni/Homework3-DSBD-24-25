@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package stock;
+
+service StockService {
+    rpc GetStock (StockQuery) returns (StockResponse);
+    rpc GetAverage (AverageQuery) returns (AverageResponse);
+}
+
+message StockQuery {
+    string email = 1; // Aggiunto campo email
+    string ticker = 2;
+}
+
+message AverageQuery {
+    string email = 1; // Aggiunto campo email
+    string ticker = 2;
+    int32 count = 3;
+}
+
+message StockResponse {
+    string status = 1;
+    double value = 2;
+}
+
+message AverageResponse {
+    string status = 1;
+    double average = 2;
+}
